@@ -11,7 +11,7 @@ file (GLOB_RECURSE sources "src/*.cpp")
 
 ## Creating the (.so) shared library
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/external)
 add_library(ConvertionFunctions SHARED src/ConvertingFunctions.cpp )
 target_include_directories(ConvertionFunctions PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
