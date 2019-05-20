@@ -35,8 +35,16 @@ bool convert (const rapidjson::Value& object, rapidjson::Value& result_value, co
 
 bool course_to_degrees(const rapidjson::Value& object, rapidjson::Value& result_value)
 {
-    result_value = object.FindMember("course")->value.GetDouble() * (180/M_PI);
-    return true;
+    auto find_itr = object.FindMember("course");
+    if (find_itr != object.MemberEnd())
+    {
+        if (find_itr->value.IsDouble())
+        {
+            result_value = find_itr->value.GetDouble() * (180/M_PI);
+            return true;
+        }
+    }
+    return false;
 }
 
 bool id_to_pl(const rapidjson::Value& object, rapidjson::Value& result_value)
@@ -44,9 +52,17 @@ bool id_to_pl(const rapidjson::Value& object, rapidjson::Value& result_value)
     rapidjson::Document result_document;
     rapidjson::Document::AllocatorType& allocator = result_document.GetAllocator();
 
-    std::string value = std::string("PL_" + std::to_string(object.FindMember("id")->value.GetInt()));
-    
-    result_value.SetString(value.c_str(), value.length(), allocator);
-    return true;
+    auto find_itr = object.FindMember("id");
+    if (find_itr != object.MemberEnd())
+    {
+        if (find_itr->value.IsInt())
+        {
+            std::string value = std::string("PL_" + std::to_string(find_itr->value.GetInt()));
+            
+            result_value.SetString(value.c_str(), value.length(), allocator);
+            return true;
+        }
+    }
+    return false;
 }
 } //converting_functions
