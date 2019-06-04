@@ -1,2 +1,3 @@
-build/
+ConversionLibrary/build/
 .vscode
+ConversionLibrary/.vscode/
